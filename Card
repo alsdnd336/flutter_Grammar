@@ -1,0 +1,56 @@
+// Copyright 2018 The Flutter team. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('GridviewPage'),
+        ),
+        body: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: 1,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          children: List.generate(10, (a){
+            return Container(
+              color: Colors.redAccent,
+              child: Text('a: $a'),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCard(note) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              note.title.isEmpty ? '(제목 없음)' : note.title,
+            ),
+            SizedBox(height: 10,),
+            Expanded(child: Text(note.body, overflow: TextOverflow.fade,),),
+          ],
+        ),
+      ),
+    );
+  }
+
+}
