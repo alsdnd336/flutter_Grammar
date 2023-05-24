@@ -1,0 +1,84 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text('WElCOME TO TEXTWORLD'),
+            titleTextStyle: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20),
+            leading: Icon(Icons.person),
+            actions: [Icon(Icons.phone),],
+          ),
+          body: GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 1,
+            ),
+            children: Buildtextfild(),
+          ),
+      ),
+    );
+  }
+}
+
+class Hello {
+  final String title;
+  final String body;
+
+  Hello(this.title, {this.body = 'keyboard'});
+}
+
+List<Widget> Buildtextfild(){
+  final notes = <Hello>[
+    Hello('안녕하세요', body:'안녕하세요 적당히 바람이 쉬원해 기분이 너무나 좋아요 유후 ~'),
+    Hello('to do LIst', body: 'today is wonderful day because i want to go jeju'),
+    Hello('andrew tat', body: 'he is realy man, he is warrier, he is my teacher'),
+  ];
+
+  return notes.map((note) => buildtext(note)).toList();
+}
+
+Widget buildtext(Hello note) {
+  return Padding(
+    padding: EdgeInsets.all(12),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          controller: TextEditingController(text: note.title),
+          decoration: InputDecoration(
+            hintText: 'title',
+          ),
+          style: TextStyle(
+            fontSize: 44,
+            fontWeight: FontWeight.bold,
+          ),
+
+        ),
+        SizedBox(height: 10,),
+        Expanded(
+          child: TextField(
+            controller: TextEditingController(text: note.body),
+            maxLines: 30,
+            decoration: InputDecoration(
+              hintText: 'Enter your username',
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
