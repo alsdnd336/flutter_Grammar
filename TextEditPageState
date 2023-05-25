@@ -1,0 +1,53 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class NoteEditPage extends StatefulWidget {
+
+  @override
+  State createState() => _NoteEditPageState();
+}
+
+class _NoteEditPageState extends State<NoteEditPage> {
+
+  final textController = TextEditingController();
+  String buttontext = '입력';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('노트 편집'),
+        titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 44,),
+          ),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'hihi HIHI',
+                ),
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
+              controller: textController,
+            ),
+            SizedBox(height: 10,),
+            Card(
+                child: Text(buttontext)
+            ),
+            ElevatedButton(
+              child: Text('출력'),
+              onPressed: () {
+                setState(() {
+                  buttontext = textController.text;
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
