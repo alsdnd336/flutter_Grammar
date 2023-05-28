@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+            title: Center(child: Text('my Dialog')),
+          ),
+          body: Builder(
+            builder: (BuildContext context) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => Dialog(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Text('Hello this is Dialog'),
+                              SizedBox(height: 15,),
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('See you again'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: const Text('Show Dialog'),
+                  ),
+                ),
+              );
+            },
+          ),
+      ),
+    );
+  }
+}
