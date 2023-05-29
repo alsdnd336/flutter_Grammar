@@ -1,0 +1,61 @@
+import 'package:flutter/material.dart';
+
+import 'SecondScreen.dart';
+import 'FirstScreen.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      title: 'Navigator',
+      home: FirstWidget(),
+      routes: {
+        '/first' : (context) => FirstWidget(),
+        '/second' : (context) => SecondWidget(),
+      },
+    ),
+  );
+}
+
+class FirstWidget extends StatelessWidget {
+  const FirstWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('This is the First Screen'),
+      ),
+      body: Center(
+        child: TextButton(
+          child: const Text('Push Here'),
+          onPressed: () {
+            Navigator.pushNamed(context, '/second');
+          },
+        ),
+      ),
+    );
+  }
+}
+
+
+class SecondWidget extends StatelessWidget {
+  const SecondWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('This is the Second Screen'),
+      ),
+      body: Center(
+        child: TextButton(
+          child: const Text('Navigator.pop'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+}
+
