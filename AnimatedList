@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+
+class MyAnimatedColumn extends StatefulWidget {
+  @override
+  _MyAnimatedColumnState createState() => _MyAnimatedColumnState();
+}
+
+class _MyAnimatedColumnState extends State<MyAnimatedColumn> {
+  List<String> _items = [];
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+
+  void _addItem() {
+    int index = _items.length;
+    _items.add('Item ${index + 1}');
+
+    _listKey.currentState!.insertItem(index);
+  }
+
+  void _removeItem(int index) {
+    _listKey.currentState!.removeItem(
+      index,
+          (context, animation) => SizedBox(
+        width: 0,
+        height: 0,
+      ),
+    );
+
+    _items.removeAt(index);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Animated Column'),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            ElevatedButton(
+              child: Text('Add Item'),
+              onPressed: _addItem,
+            ),
+            Expanded(
+              child: AnimatedList(
+                key: _listKey,
+                initialItemCount: _items.length,
+                itemBuilder: (context, index, animation) {
+                  return SizeTransition(
+                    sizeFactor: animation,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1,
+                        )
+                      ),
+                      child: ListTile(
+                        title: Text(_items[index]),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () => _removeItem(index),
+                        ),
+                      ),
+
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     Icon(Icons.add),
+                      //     Icon(Icons.calendar_month),
+                      //     Icon(Icons.access_alarms_sharp),
+                      //     Icon(Icons.wallet_membership_rounded),
+                      //     IconButton(
+                      //         icon: Icon(Icons.delete),
+                      //         onPressed: () => _removeItem(index),
+                      //       ),
+                      //   ],
+                      // ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: MyAnimatedColumn(),
+  ));
+}
